@@ -237,6 +237,171 @@
             color: #c33;
             text-align: center;
         }
+        
+        /* Print Styles */
+        @media print {
+            * {
+                background: white !important;
+                color: black !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                border: none !important;
+                font-size: 9pt !important;
+            }
+            
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 5px;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            h1 {
+                font-size: 9pt !important;
+                font-weight: bold;
+                margin-bottom: 10pt;
+                page-break-after: avoid;
+            }
+            
+            .subtitle {
+                font-size: 9pt !important;
+                margin-bottom: 20pt;
+                page-break-after: avoid;
+            }
+            
+            .intro-section {
+                border: none;
+                border-radius: 0;
+                padding: 0;
+                margin-bottom: 10pt;
+                page-break-inside: avoid;
+                background: white !important;
+            }
+            
+            .intro-section p {
+                display: none; /* Hide all intro paragraphs */
+            }
+            
+            /* Add "Printed from" text */
+            .intro-section:before {
+                content: "Printed from 2025.kghosh.me -- your 8-ball into 2026";
+                display: block;
+                font-size: 9pt;
+                font-style: italic;
+                margin-bottom: 15pt;
+            }
+            
+            /* Hide interactive elements */
+            button {
+                display: none;
+            }
+            
+            .dataframe-section {
+                page-break-inside: avoid;
+                border: none;
+                padding: 0;
+                margin-bottom: 15pt;
+                background: white !important;
+            }
+            
+            .seeds-section {
+                border: none;
+                page-break-inside: auto;
+            }
+            
+            .dataframe-section h2 {
+                font-size: 9pt !important;
+                font-weight: bold;
+                margin-bottom: 10pt;
+                page-break-after: avoid;
+                border: none;
+                padding-bottom: 5pt;
+            }
+            
+            .section-intro {
+                display: none !important;
+            }
+            
+            .item, .seed-item {
+                page-break-inside: avoid;
+                border: none;
+                padding: 0;
+                margin-bottom: 10pt;
+                background: white !important;
+            }
+            
+            .item-name {
+                font-size: 9pt !important;
+                font-weight: bold;
+                margin-bottom: 5pt;
+            }
+            
+            .item-description {
+                font-size: 9pt !important;
+                line-height: 1.4;
+                margin-bottom: 8pt;
+            }
+            
+            .item-meta {
+                display: none !important; /* Hide all metadata including links everywhere */
+            }
+            
+            .seed-details {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10pt;
+                margin-top: 10pt;
+                padding-top: 10pt;
+                border: none;
+            }
+            
+            .seed-detail {
+                font-size: 9pt !important;
+                page-break-inside: avoid;
+            }
+            
+            /* Hide relevancy in seeds (4th item in grid) */
+            .seed-detail:nth-child(4) {
+                display: none !important;
+            }
+            
+            .seed-detail strong {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 3pt;
+                font-size: 9pt !important;
+            }
+            
+            .seed-detail-value {
+                font-size: 9pt !important;
+            }
+            
+            /* Add footer with page numbers */
+            @page {
+                margin: 0.75cm;
+                @bottom-right {
+                    content: "Page " counter(page);
+                    font-size: 9pt;
+                }
+            }
+            
+            /* Prevent orphans and widows */
+            p, .item, .seed-item {
+                orphans: 3;
+                widows: 3;
+            }
+            
+            h2 {
+                orphans: 3;
+                widows: 3;
+            }
+        }
     </style>
 </head>
 <body>
@@ -244,15 +409,16 @@
         <h1>🔮 Signals from Tomorrow</h1>
         <p class="subtitle">A Scenario Builder's Field Guide</p>
         
-<div class="intro-section">
+        <div class="intro-section">
             <p>Welcome, future-maker! You're about to embark on a journey through the <strong>whispers of change</strong> that are shaping our world right now.</p>
             <p>Each time you refresh or click below, you'll discover a unique constellation of signals—weak and strong—carefully curated to spark your imagination and inform your scenarios. Think of this as your <strong>serendipity engine</strong> for foresight work.</p>
             <p><strong>How to use this:</strong> Let the patterns emerge. Notice what connects. Ask "what if?" Allow these signals to collide in your mind and see what futures want to be born.</p>
             <p><strong>About the signals:</strong> Every link you'll find here is lovingly curated at <a href="https://substack.kghosh.me/" target="_blank" rel="noopener noreferrer">substack.kghosh.me</a> and processed through the full library at <a href="https://futures.kghosh.me/" target="_blank" rel="noopener noreferrer">futures.kghosh.me</a>. This is a human-guided collection of change signals from across the web.</p>
             <p><a href="https://futures.kghosh.me/#Analyses_by_Topic:~:text=des%20qubits%20topologiques-,Analyses%20by%20Topic,-AI%20in%20infrastructure">And some more topics mapped for 2026 </a> if you are even more curious, stemming from my <a href="https://substack.kghosh.me/p/20251231"> 2026 review</a>.</p>
+            <p> Printing it (Ctrl + P) renders a simplified version of this page to be printed as a 2-pager with no fancy text.</p>
         </div>
         
-        <button id="generateBtn" onclick="displayRandomSamples()">🎲 Draw new Signals</button>
+        <button id="generateBtn" onclick="displayRandomSamples()">🎲 Draw New Signals</button>
         
         <div id="results">
             <div class="loading">Loading data...</div>
