@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signals from Tomorrow | Scenario Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .intro-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .intro-section p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        
+        .intro-section p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .intro-section strong {
+            color: #667eea;
+        }
+        
+        .section-intro {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            padding: 10px 15px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 4px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        button {
+            display: block;
+            margin: 0 auto 30px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .dataframe-section {
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        
+        .dataframe-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .seeds-section {
+            margin-bottom: 40px;
+            border: 2px solid #667eea;
+        }
+        
+        .seeds-section h2 {
+            color: #764ba2;
+            font-size: 24px;
+        }
+        
+        .seed-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #764ba2;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .seed-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .seed-item .item-name {
+            font-size: 20px;
+            color: #764ba2;
+        }
+        
+        .seed-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        
+        .seed-detail {
+            font-size: 14px;
+        }
+        
+        .seed-detail strong {
+            color: #555;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .seed-detail-value {
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .item-description {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .item-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .item-meta strong {
+            color: #555;
+        }
+        
+        .item-meta a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .item-meta a:hover {
+            text-decoration: underline;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            border-radius: 6px;
+            padding: 20px;
+            color: #c33;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔮 Signals from Tomorrow</h1>
+        <p class="subtitle">A Scenario Builder's Field Guide</p>
+        
+<div class="intro-section">
+            <p>Welcome, future-maker! You're about to embark on a journey through the <strong>whispers of change</strong> that are shaping our world right now.</p>
+            <p>Each time you refresh or click below, you'll discover a unique constellation of signals—weak and strong—carefully curated to spark your imagination and inform your scenarios. Think of this as your <strong>serendipity engine</strong> for foresight work.</p>
+            <p><strong>How to use this:</strong> Let the patterns emerge. Notice what connects. Ask "what if?" Allow these signals to collide in your mind and see what futures want to be born.</p>
+            <p><strong>About the signals:</strong> Every link you'll find here is lovingly curated at <a href="https://substack.kghosh.me/" target="_blank" rel="noopener noreferrer">substack.kghosh.me</a> and processed through the full library at <a href="https://futures.kghosh.me/" target="_blank" rel="noopener noreferrer">futures.kghosh.me</a>. This is a human-guided collection of change signals from across the web.</p>
+            <p><a href="https://futures.kghosh.me/#Analyses_by_Topic:~:text=des%20qubits%20topologiques-,Analyses%20by%20Topic,-AI%20in%20infrastructure">And some more topics mapped for 2026 </a> if you are even more curious, stemming from my <a href="https://substack.kghosh.me/p/20251231"> 2026 review</a>.</p>
+        </div>
+        
+        <button id="generateBtn" onclick="displayRandomSamples()">🎲 Draw new Signals</button>
+        
+        <div id="results">
+            <div class="loading">Loading data...</div>
+        </div>
+    </div>
+
+    <script>
+        let data = null;
+
+        // Load data from JSON file
+        async function loadData() {
+            try {
+                // Update this path to match your file structure
+                // If your HTML is in docs/ and JSON is in docs/data/, use 'data/combined_data.json'
+                const response = await fetch('data/combined_data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                data = await response.json();
+                console.log('✅ Data loaded successfully');
+                console.log(`   - Seeds: ${data.seeds?.length || 0} items`);
+                console.log(`   - Behav: ${data.behav?.length || 0} items`);
+                console.log(`   - Concern: ${data.concern?.length || 0} items`);
+                console.log(`   - Issue: ${data.issue?.length || 0} items`);
+                console.log(`   - Tech: ${data.tech?.length || 0} items`);
+                displayRandomSamples();
+            } catch (error) {
+                console.error('❌ Error loading data:', error);
+                document.getElementById('results').innerHTML = `
+                    <div class="error">
+                        <h3>Error Loading Data</h3>
+                        <p>${error.message}</p>
+                        <p>Make sure combined_data.json is accessible at the correct path.</p>
+                        <p>Current path: data/combined_data.json</p>
+                    </div>
+                `;
+                document.getElementById('generateBtn').disabled = true;
+            }
+        }
+
+        // Function to get random samples from an array
+        function getRandomSamples(array, count = 3) {
+            const shuffled = [...array].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, count);
+        }
+
+        // Function to display random samples
+        function displayRandomSamples() {
+            if (!data) {
+                document.getElementById('results').innerHTML = 
+                    '<div class="loading">Data not loaded yet...</div>';
+                return;
+            }
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            // Display seeds first (5 random items)
+            if (data.seeds && data.seeds.length > 0) {
+                displaySeeds(resultsDiv);
+            }
+
+            // Define your data groups (displayed after seeds)
+            const dataGroups = [
+                { 
+                    name: '👥 Behavioral Shifts', 
+                    key: 'behav',
+                    intro: 'How are people changing? These behavioral patterns reveal evolving human needs, desires, and adaptations. Look for what\'s being abandoned and what\'s being embraced.'
+                },
+                { 
+                    name: '💭 Rising Concerns', 
+                    key: 'concern',
+                    intro: 'What keeps people up at night? These emerging anxieties and tensions signal where friction is building. Every concern is a scenario waiting to unfold—for better or worse.'
+                },
+                { 
+                    name: '⚠️ Issues in Motion', 
+                    key: 'issue',
+                    intro: 'Problems evolving, challenges emerging, conflicts brewing. These issues are the pressure points of our present moment—each one could cascade into something much larger.'
+                },
+                { 
+                    name: '⚡ Technology Waves', 
+                    key: 'tech',
+                    intro: 'New tools, new possibilities, new disruptions. These technological developments are reshaping what\'s possible—and what\'s at stake. What capabilities do they enable? What do they threaten?'
+                }
+            ];
+
+            dataGroups.forEach(group => {
+                const groupData = data[group.key];
+                
+                if (!groupData || groupData.length === 0) {
+                    console.warn(`No data found for ${group.name}`);
+                    return;
+                }
+
+                const samples = getRandomSamples(groupData, 3);
+                
+                const section = document.createElement('div');
+                section.className = 'dataframe-section';
+                
+                const heading = document.createElement('h2');
+                heading.textContent = group.name;
+                section.appendChild(heading);
+                
+                const intro = document.createElement('div');
+                intro.className = 'section-intro';
+                intro.textContent = group.intro;
+                section.appendChild(intro);
+
+                samples.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'item';
+                    
+                    const srcLink = `https://futures.kghosh.me/${item.src}`;
+                    
+                    itemDiv.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-description">${item.description}</div>
+                        <div class="item-meta">
+                            <span><strong>Relevancy:</strong> ${item.relevancy}</span>
+                            <span><strong>Link to:</strong> <a href="${srcLink}" target="_blank" rel="noopener noreferrer">${item.src}</a></span>
+                        </div>
+                    `;
+                    
+                    section.appendChild(itemDiv);
+                });
+
+                resultsDiv.appendChild(section);
+            });
+        }
+
+        // Function to display seeds
+        function displaySeeds(resultsDiv) {
+            const seeds = getRandomSamples(data.seeds, 5);
+            
+            const section = document.createElement('div');
+            section.className = 'dataframe-section seeds-section';
+            
+            const heading = document.createElement('h2');
+            heading.textContent = '🌱 Weak Signals: The Seeds of Change';
+            section.appendChild(heading);
+            
+            const intro = document.createElement('div');
+            intro.className = 'section-intro';
+            intro.textContent = 'These are the quiet tremors before the earthquake—early indicators that most people haven\'t noticed yet. Each seed is a potential catalyst. What happens if it grows? What futures does it unlock?';
+            section.appendChild(intro);
+
+            seeds.forEach(seed => {
+                const seedDiv = document.createElement('div');
+                seedDiv.className = 'seed-item';
+                
+                const srcLink = `https://futures.kghosh.me/${seed.src}`;
+                
+                seedDiv.innerHTML = `
+                    <div class="item-name">${seed.name}</div>
+                    <div class="item-description">${seed.description}</div>
+                    <div class="seed-details">
+                        <div class="seed-detail">
+                            <strong>Change:</strong>
+                            <div class="seed-detail-value">${seed.change || 'N/A'}</div>
+                        </div>
+                        <div class="seed-detail">
+                            <strong>10-Year:</strong>
+                            <div class="seed-detail-value">${seed['10-year'] || 'N/A'}</div>
+                        </div>
+                        <div class="seed-detail">
+                            <strong>Driving Force:</strong>
+                            <div class="seed-detail-value">${seed['driving-force'] || 'N/A'}</div>
+                        </div>
+                        <div class="seed-detail">
+                            <strong>Relevancy:</strong>
+                            <div class="seed-detail-value">${seed.relevancy || 'N/A'}</div>
+                        </div>
+                    </div>
+                    <div class="item-meta" style="margin-top: 12px;">
+                        <span><strong>Link to:</strong> <a href="${srcLink}" target="_blank" rel="noopener noreferrer">${seed.src}</a></span>
+                    </div>
+                `;
+                
+                section.appendChild(seedDiv);
+            });
+
+            resultsDiv.appendChild(section);
+        }
+
+        // Load data when page loads
+        window.onload = loadData;
+    </script>
+</body>
+</html>
